@@ -27,6 +27,7 @@ app.post('/api/shorten',function(req,res){
   Url.findOne({long_url: longUrl},function(err,doc){
     if(doc){
       shortUrl = "http://localhost:8080/" + convert.encode(doc._id);
+      console.log(doc._id);
       res.send({'shortUrl' : shortUrl});
     }
     else{
@@ -47,7 +48,7 @@ app.post('/api/shorten',function(req,res){
 app.get('/:encoded',function(req,res){
   var encoded = req.params.encoded;
   var id = convert.decode(encoded);
-  model.findOne({_id: id},function(err,doc){
+  Url.findOne({_id: id},function(err,doc){
     if(err){
       console.log(err);
     }
